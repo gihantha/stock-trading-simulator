@@ -1,0 +1,31 @@
+{
+  "name": "stock-trading-simulator",
+  "private": true,
+  "version": "0.0.0",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev:frontend": "npm --workspace frontend run dev",
+    "dev:backend": "npm --workspace backend run dev",
+    "test": "npm --workspaces run test --silent"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gihantha/stock-trading-simulator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/gihantha/stock-trading-simulator/issues"
+  },
+  "homepage": "https://github.com/gihantha/stock-trading-simulator#readme"
+}
