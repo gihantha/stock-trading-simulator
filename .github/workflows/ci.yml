@@ -1,48 +1,34 @@
-# .github/workflows/ci.yml
-name: CI
+name: Node.js CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
-  build-and-test:
+  build-test:
     runs-on: ubuntu-latest
-    
-    services:
-      mongo:
-        image: mongo:6
-        ports:
-          - 27017:27017
-    
+
+    strategy:
+      matrix:
+        workspace: [frontend, backend]
+
     steps:
-      - uses: actions/checkout@v4
-      
-      - name: Setup Node
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
-      
-      - name: Install and test backend
-        run: |
-          cd backend
-          npm install
-          npm test
-          npm run build
-        env:
-          NODE_ENV: test
-          MONGO_URI_TEST: mongodb://localhost:27017/stock-simulator-test
-          JWT_SECRET: test-jwt-secret-for-ci-pipeline-2024
-          PORT: 5000
-      
-      - name: Install and test frontend
-        run: |
-          cd frontend
-          npm install
-          npm test
-          npm run build
-        env:
-          CI: true
-      
-      - name: Build backend Docker image
-        run: |
-          cd backend
-          docker build -t stock-simulator-backend .
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install --workspace ${{ matrix.workspace }}
+
+      - name: Run tests
+        run: npm test --workspace ${{ matrix.workspace }}
+
+      - name: Build project
+        run: npm run build --workspace ${{ matrix.workspace }}
