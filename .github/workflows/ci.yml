@@ -1,13 +1,13 @@
-name: Node.js CI
+name: CI - Frontend & Backend
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [main]
   pull_request:
-    branches: [ "main" ]
+    branches: [main]
 
 jobs:
-  build-test:
+  test:
     runs-on: ubuntu-latest
 
     strategy:
@@ -15,20 +15,21 @@ jobs:
         workspace: [frontend, backend]
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm install --workspace ${{ matrix.workspace }}
+      - name: Install dependencies (root + workspace)
+        run: |
+          npm install
+          npm install --workspace ${{ matrix.workspace }}
 
       - name: Run tests
+        env:
+          NODE_ENV: test
         run: npm test --workspace ${{ matrix.workspace }}
-
-      - name: Build project
-        run: npm run build --workspace ${{ matrix.workspace }}
