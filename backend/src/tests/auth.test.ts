@@ -21,7 +21,7 @@ describe('Auth Routes', () => {
   it('should register a new user', async () => {
     // Implement test for user registration
     const res = await request(app).post('/api/auth/register').send({
-      name: 'Alice',
+      username: 'Alice', 
       email: 'alice@test.com',
       password: 'password123',
     });

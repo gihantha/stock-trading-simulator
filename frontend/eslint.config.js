@@ -4,6 +4,7 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
+import path from 'node:path'
 
 export default defineConfig([
   globalIgnores(['dist']),
@@ -15,9 +16,17 @@ export default defineConfig([
       reactHooks.configs['recommended-latest'],
       reactRefresh.configs.vite,
     ],
-    languageOptions: {
+    parserOptions: {
+      project: path.resolve(__dirname, 'tsconfig.json'), // 🔹 point to frontend tsconfig
+      tsconfigRootDir: __dirname,                         // 🔹 explicitly set the root dir
       ecmaVersion: 2020,
+      sourceType: 'module',
+    },
+    languageOptions: {
       globals: globals.browser,
+    },
+    rules: {
+      // add custom rules here if needed
     },
   },
 ])

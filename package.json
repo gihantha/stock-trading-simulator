@@ -27,5 +27,13 @@
   "bugs": {
     "url": "https://github.com/gihantha/stock-trading-simulator/issues"
   },
-  "homepage": "https://github.com/gihantha/stock-trading-simulator#readme"
+  "homepage": "https://github.com/gihantha/stock-trading-simulator#readme",
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.16",
+    "tailwindcss": "^4.1.16"
+  },
+  "optionalDependencies": {
+  "@rollup/rollup-win32-x64-msvc": "^4.52.5"
+  }
+
 }

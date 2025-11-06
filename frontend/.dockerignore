@@ -1,0 +1,32 @@
+# Node modules (installed in Docker)
+node_modules
+
+# Build output (Docker will rebuild)
+dist
+dist-ssr
+
+# Logs
+*.log
+logs
+
+# Local environment files
+.env
+.env.*.local
+
+# OS or editor files
+.DS_Store
+.vscode
+.idea
+
+# Cypress artifacts
+cypress/screenshots
+cypress/videos
+cypress/fixtures
+
+# Git files
+.git
+.gitignore
+
+# Temporary files
+*.tmp
+*.sw?
