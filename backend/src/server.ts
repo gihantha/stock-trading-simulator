@@ -1,5 +1,6 @@
 // backend/src/server.ts
 import dotenv from 'dotenv';
+dotenv.config({ path: '/etc/secrets/backend.env' });
 
 // must come first
 dotenv.config({

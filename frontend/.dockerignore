@@ -30,3 +30,5 @@ cypress/fixtures
 # Temporary files
 *.tmp
 *.sw?
+
+cypress

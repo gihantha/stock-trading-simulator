@@ -1,65 +1,22 @@
-services:
-  cypress:
-    image: cypress/included:13.7.0
-    container_name: sts-cypress
-    depends_on:
-      - frontend
-    working_dir: /e2e
-    volumes:
-      - ./frontend:/e2e
-    environment:
-      # Let Cypress use the internal Docker hostname of the frontend service
-      - CYPRESS_baseUrl=http://frontend:3000
-    networks:
-      - sts-network
-    entrypoint: ["npx", "cypress", "run", "--browser", "chrome"]
+version: "3.9"
 
+services:
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    container_name: sts-backend
+    build: ./backend
+    container_name: backend
     ports:
       - "5000:5000"
     env_file:
       - ./backend/.env
-    depends_on:
-      - mongo
-    networks:
-      - sts-network
+    restart: unless-stopped
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: sts-frontend
+    build: ./frontend
+    container_name: frontend
     ports:
-      - "3000:3000"
-    environment:
-      # API URL points to backend service inside Docker network
-      VITE_API_URL: "http://backend:5000/api"
+      - "3000:80"
+    env_file:
+      - ./frontend/.env
     depends_on:
       - backend
-    networks:
-      - sts-network
-
-  mongo:
-    image: mongo:6.0
-    container_name: sts-mongo
-    restart: always
-    ports:
-      - "27017:27017"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: gihantha01_db_user
-      MONGO_INITDB_ROOT_PASSWORD: kXhcugWrzC65oxZ0
-    volumes:
-      - mongo-data:/data/db
-    networks:
-      - sts-network
-
-volumes:
-  mongo-data:
-
-networks:
-  sts-network:
-    driver: bridge
+    restart: unless-stopped

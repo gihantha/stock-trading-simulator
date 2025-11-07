@@ -1,33 +1,23 @@
 # Stage 1: Build
-FROM node:20-alpine AS build
+FROM node:18-alpine AS build
 
 WORKDIR /app
 
-# Copy only package files first to leverage Docker layer caching
-COPY package*.json tsconfig.app.json vite.config.ts ./
+COPY package.json ./
+RUN npm install
 
-# Install dependencies
-RUN npm install --ignore-platform
-
-# Copy the rest of the source code
 COPY . .
 
-# Build the frontend
 RUN npm run build
 
-# Stage 2: Production image
-FROM node:18-alpine AS production
-
+# Stage 2: Runtime
+FROM node:18-alpine AS runtime
 WORKDIR /app
 
-# Install serve to run the frontend
-RUN npm install -g serve
-
-# Copy build output from build stage
 COPY --from=build /app/dist ./dist
+COPY package.json ./
 
-# Expose frontend port
-EXPOSE 3000
+EXPOSE 5173
+ENV NODE_ENV=production
 
-# Command to serve the frontend
-CMD ["serve", "-s", "dist", "-l", "3000"]
+CMD ["npm", "run", "preview"]

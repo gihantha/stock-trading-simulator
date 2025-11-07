@@ -9,7 +9,7 @@
     "module": "ESNext",
     "moduleResolution": "node",
     // "module": "commonjs",
-    "types": ["vite/client", "node", "cypress"],
+    "types": ["vite/client", "node"],
     "skipLibCheck": true,
 
     /* Bundler mode */
@@ -28,6 +28,6 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src/**/*", "cypress/e2e/**/*", "cypress/support/**/*"],
-  "exclude": ["node_modules"]
+  "include": ["src/**/*"],  
+  "exclude": ["node_modules", "dist","cypress"]
 }

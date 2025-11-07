@@ -6,3 +6,6 @@ dist
 .gitignore
 README.md
 .coverage
+.env.
+.env.e2e
+*.log

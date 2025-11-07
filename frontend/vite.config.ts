@@ -1,11 +1,12 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  define: {
-    'import.meta.env.VITE_API_URL': JSON.stringify('http://localhost:5000/api'),
+  build: {
+    outDir: 'dist', // Output folder
   },
-})
+  root: './', // Set to the project root to correctly handle the `index.html` path
+});
