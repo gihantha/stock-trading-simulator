@@ -33,3 +33,6 @@ cypress/screenshots/
 cypress/videos/
 cypress/fixtures/
 cypress/e2e
+
+.env.local
+.env.production
