@@ -2,3 +2,5 @@ node_modules
 .env
 /backend/.env
 .env.dev
+/frontend/.env.local
+/frontend/.env.production
