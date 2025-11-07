@@ -8,7 +8,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "jest",
-    "test:e2e": "cypress open"
+    "test:e2e": "cypress open",
+    "rollup-build": "rollup -c rollup.config.js"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.16",

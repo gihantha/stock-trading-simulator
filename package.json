@@ -33,7 +33,11 @@
     "tailwindcss": "^4.1.16"
   },
   "optionalDependencies": {
-  "@rollup/rollup-win32-x64-msvc": "^4.52.5"
+    "@rollup/rollup-win32-x64-msvc": "^4.52.5"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^29.0.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "rollup": "^4.52.5"
   }
-
 }
