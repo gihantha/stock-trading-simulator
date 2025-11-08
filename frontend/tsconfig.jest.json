@@ -1,8 +1,8 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "./tsconfig.app.json",
   "compilerOptions": {
-    "module": "ESNext",
-    "target": "ES2020",
-    "jsx": "react-jsx"
+    "module": "esnext",          // allows import.meta
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   }
 }

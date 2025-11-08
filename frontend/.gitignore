@@ -36,3 +36,4 @@ cypress/e2e
 
 .env.local
 .env.production
+.env.test

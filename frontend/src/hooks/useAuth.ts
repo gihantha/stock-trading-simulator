@@ -17,40 +17,42 @@ export function useAuth() {
   const [error, setError] = useState<string | null>(null);
 
   const handleLogin = async (data: LoginData) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await login(data); 
-      localStorage.setItem('token', res.token);
-      return res;
-    } catch (err: unknown) {
-if (err instanceof Error) {
+  setLoading(true);
+  setError(null);
+  try {
+    const res = await login(data); // res is AuthResponse
+    localStorage.setItem('token', res.token); // ✅ no more TS error
+    return res;
+  } catch (err: unknown) {
+    if (err instanceof Error) {
       setError(err.message);
     } else {
       setError('Login failed');
     }
-      throw err;
-    } finally {
-      setLoading(false);
-    }
-  };
+    throw err;
+  } finally {
+    setLoading(false);
+  }
+};
 
-  const handleRegister = async (data: RegisterData) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await register(data);
-      return res;
-    } catch (err: unknown) {
-if (err instanceof Error) {
+const handleRegister = async (data: RegisterData) => {
+  setLoading(true);
+  setError(null);
+  try {
+    const res = await register(data); // res is AuthResponse
+    return res;
+  } catch (err: unknown) {
+    if (err instanceof Error) {
       setError(err.message);
     } else {
       setError('Registration failed');
-    }      throw err;
-    } finally {
-      setLoading(false);
     }
-  };
+    throw err;
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   const logout = () => {
     localStorage.removeItem('token');

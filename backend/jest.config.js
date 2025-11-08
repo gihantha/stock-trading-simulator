@@ -5,5 +5,9 @@ module.exports = {
   setupFiles: ['<rootDir>/jest.setup.ts'],
   transform: {
     '^.+\\.tsx?$': ['ts-jest']
-  }
+  },
+  transformIgnorePatterns: [
+  "/node_modules/(?!@testing-library/jest-dom)"
+]
+
 };

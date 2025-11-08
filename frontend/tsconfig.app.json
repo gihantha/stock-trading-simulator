@@ -6,10 +6,10 @@
     "target": "ES2022",
     "useDefineForClassFields": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
+    "module": "ESNext", 
     "moduleResolution": "node",
     // "module": "commonjs",
-    "types": ["vite/client", "node"],
+    "types": ["vite/client", "node", "jest"],
     "skipLibCheck": true,
 
     /* Bundler mode */
@@ -29,5 +29,5 @@
     "noUncheckedSideEffectImports": true
   },
   "include": ["src/**/*"],  
-  "exclude": ["node_modules", "dist","cypress"]
+  "exclude": ["node_modules", "dist","cypress", "src/tests"]
 }

@@ -9,4 +9,7 @@ export default defineConfig({
     outDir: 'dist', // Make sure this is correctly set
   },
   root: __dirname,
+  define: {
+    'process.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL)
+  }
 });

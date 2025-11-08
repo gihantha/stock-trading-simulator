@@ -1,18 +1,17 @@
-import * as axios from 'axios';
+import axios from 'axios';
+import { API_URL } from '../config/env';
 
-const API_URL = (globalThis as any)?.import?.meta?.env?.VITE_API_URL || 'http://localhost:5000/api';
-interface AuthData {
-  username?: string;
-  password: string;
-  email?: string;
+export interface AuthResponse {
+  token: string;
+  user: { id: number; username: string; email: string };
 }
 
-export const register = async (data: AuthData) => {
-  const res = await axios.default.post(`${API_URL}/auth/register`, data);
+export async function login(data: { email: string; password: string }): Promise<AuthResponse> {
+  const res = await axios.post<AuthResponse>(`${API_URL}/auth/login`, data);
   return res.data;
-};
+}
 
-export const login = async (data: AuthData) => {
-  const res = await axios.default.post(`${API_URL}/auth/login`, data);
+export async function register(data: { username: string; email: string; password: string }): Promise<AuthResponse> {
+  const res = await axios.post<AuthResponse>(`${API_URL}/auth/register`, data);
   return res.data;
-};
+}
