@@ -9,34 +9,28 @@ on:
       - main
 
 jobs:
-  backend-tests:
-    name: Run Backend Tests
+  test:
+    name: Run Tests
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [20.x]
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Setup Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'npm'
 
-      # Cache backend node_modules
-      - name: Cache Backend Dependencies
-        uses: actions/cache@v3
-        with:
-          path: backend/node_modules
-          key: backend-node-modules-${{ runner.os }}-${{ hashFiles('backend/package-lock.json') }}
-          restore-keys: |
-            backend-node-modules-${{ runner.os }}-
+      # Install dependencies for all workspaces from root
+      - name: Install Dependencies
+        run: npm ci --prefer-offline --no-audit
 
-      - name: Install Backend Dependencies
-        working-directory: ./backend
-        run: npm ci --prefer-offline --no-audit --ignore-scripts
-
+      # Backend Tests
       - name: Run Backend Tests
         working-directory: ./backend
         env:
@@ -45,33 +39,7 @@ jobs:
           PORT: ${{ secrets.PORT }}
         run: npm test -- --runInBand
 
-  frontend-tests:
-    name: Run Frontend Tests
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [20.x]
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      # Cache frontend node_modules
-      - name: Cache Frontend Dependencies
-        uses: actions/cache@v3
-        with:
-          path: frontend/node_modules
-          key: frontend-node-modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            frontend-node-modules-${{ runner.os }}-
-
-      - name: Install Frontend Dependencies
-        run: npm ci --prefix ./frontend --prefer-offline --no-audit
-
+      # Frontend Tests
       - name: Run Frontend Tests
         working-directory: ./frontend
         run: npm test
